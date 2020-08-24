@@ -6,15 +6,30 @@
 //  Copyright © 2020 Adli Raihan. All rights reserved.
 //
 
+import SwiftUI
 import Foundation
 import ObjectMapper
+import FirebaseFirestore
+import FirebaseAuth
+
+// sementara
+var profileSectionCollectionPath = "profile_sections"
+var currentEmail = {
+    return Auth.auth().currentUser?.email ?? ""
+}
+
+enum profileSectionBussinessCase{
+    case success
+    case failed(String)
+}
 
 protocol profileSectionBusinessLogic {
     associatedtype personalInformation
+    var businessCase: ((profileSectionBussinessCase) -> Void) { get }
     func sendToFireBase(_ M:Mappable) -> personalInformation
 }
 
-struct tokenType<PSB: profileSectionBusinessLogic, M:Mappable> {
+private struct tokenType<PSB: profileSectionBusinessLogic, M:Mappable> {
     private var token: PSB
     private var model: M
     init(_ anyToken: PSB, _ anyModel:M) {
@@ -26,34 +41,51 @@ struct tokenType<PSB: profileSectionBusinessLogic, M:Mappable> {
     }
 }
 
-struct profileSectionPersonalInformation: profileSectionBusinessLogic {
+private class profileSectionPersonalInformation: profileSectionBusinessLogic {
+    var businessCase: ((profileSectionBussinessCase) -> Void) = {_ in}
     func sendToFireBase(_ M:Mappable) -> profileSectionPersonalInformation {
-        print("send to firebase Personal")
+        Firestore.firestore().collection(profileSectionCollectionPath).document(currentEmail()).setData(M.toJSON()) {
+            err in
+            if err == nil { self.businessCase(.success) }
+            else { self.businessCase(.failed(err!.localizedDescription))}
+        }
         return self
     }
-    
 }
 
-struct profileSectionWorkInformation: profileSectionBusinessLogic {
+private class profileSectionWorkInformation: profileSectionBusinessLogic {
+    var businessCase: ((profileSectionBussinessCase) -> Void)  = {_ in}
     func sendToFireBase(_ M:Mappable) -> profileSectionWorkInformation {
-        print("send to firebase Work")
+        Firestore.firestore().collection(profileSectionCollectionPath).document(currentEmail()).setData(M.toJSON()) {
+            err in
+            if err == nil {
+                self.businessCase(.success)
+            }
+            else {
+                self.businessCase(.failed(err!.localizedDescription))
+            }
+        }
+        
         return self
     }
 }
 
-struct profileSectionsObject<T:profileSectionBusinessLogic, M:Mappable> {
-    let Model: M
-    let Worker: T
-    func startCommit() {
-        _ = self.Worker.sendToFireBase(Model)
+private struct profileSectionsObject<T:profileSectionBusinessLogic, M:Mappable> {
+    let Worker: tokenType<T,M>
+    func startCommit() -> T? {
+        if let tStrong = self.Worker.sendToFireBase() as? T {
+            return tStrong
+        } else {
+            return nil
+        }
     }
 }
 
 class profileSectionsWorker {
-    
     func setFirebaseUserProfile(_ model: profileSections) {
-        let model = profileSectionsObject.init(Model: model, Worker: profileSectionPersonalInformation())
-        model.startCommit()
+        profileSectionsObject.init(Worker: tokenType.init(profileSectionPersonalInformation.init(), model)).startCommit()?.businessCase = {
+            result in
+            print(result)
+        }
     }
-    
 }
