@@ -12,6 +12,7 @@
 		8C5FC8EEE1A06666B10FC228 /* Pods_TrainSupperAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083CE133A67AFE080252E279 /* Pods_TrainSupperAppsTests.framework */; };
 		C261C05F24F39A1900C3FD81 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C261C05E24F39A1900C3FD81 /* Dashboard.swift */; };
 		C261C06224F3AFEF00C3FD81 /* profileSectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C261C06124F3AFEF00C3FD81 /* profileSectionsModel.swift */; };
+		C261C06424F3C52A00C3FD81 /* profileSectionsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C261C06324F3C52A00C3FD81 /* profileSectionsWorker.swift */; };
 		C265D22924D2AD910030CA40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265D22824D2AD910030CA40 /* AppDelegate.swift */; };
 		C265D22B24D2AD910030CA40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265D22A24D2AD910030CA40 /* SceneDelegate.swift */; };
 		C265D22D24D2AD910030CA40 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265D22C24D2AD910030CA40 /* ContentView.swift */; };
@@ -67,6 +68,7 @@
 		B9DE2A7B8E047F1114E55CCA /* Pods_TrainSupperApps_TrainSupperAppsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrainSupperApps_TrainSupperAppsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C261C05E24F39A1900C3FD81 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		C261C06124F3AFEF00C3FD81 /* profileSectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileSectionsModel.swift; sourceTree = "<group>"; };
+		C261C06324F3C52A00C3FD81 /* profileSectionsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileSectionsWorker.swift; sourceTree = "<group>"; };
 		C265D22524D2AD910030CA40 /* TrainSupperApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainSupperApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C265D22824D2AD910030CA40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C265D22A24D2AD910030CA40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				C261C06124F3AFEF00C3FD81 /* profileSectionsModel.swift */,
+				C261C06324F3C52A00C3FD81 /* profileSectionsWorker.swift */,
 			);
 			path = profileSections;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				C2CBF47824F10F4500FF5BEB /* keyboardObserver.swift in Sources */,
 				C26C32AA24DAA1C9003E6695 /* NetworkURI.swift in Sources */,
 				C2CBF47524F108A800FF5BEB /* BaseKitView.swift in Sources */,
+				C261C06424F3C52A00C3FD81 /* profileSectionsWorker.swift in Sources */,
 				C2BCB7AB24E125AC00CA5354 /* FinImage.swift in Sources */,
 				C261C06224F3AFEF00C3FD81 /* profileSectionsModel.swift in Sources */,
 				C265D22D24D2AD910030CA40 /* ContentView.swift in Sources */,

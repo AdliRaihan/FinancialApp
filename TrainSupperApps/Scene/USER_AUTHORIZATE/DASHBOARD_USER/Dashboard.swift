@@ -65,25 +65,26 @@ class dashboardViewBusiness: ObservableObject {
     }
     
     func debugPushToFirebase() {
-        let uid: String? = fireBaseUserSessionImpl().getSession()?.uid
-        let db: Firestore! = Firestore.firestore()
-        let currentUser: User? = Auth.auth().currentUser
-        var userModel: profileSections = profileSections()
+//        let uid: String? = fireBaseUserSessionImpl().getSession()?.uid
+//        let db: Firestore! = Firestore.firestore()
+//        let currentUser: User? = Auth.auth().currentUser
+//        var userModel: profileSections = profileSections()
+//
+//        userModel.age = 21
+//        userModel.experience_in_current_work = 2
+//        userModel.salary_per_months = 4500000
+//        userModel.salary_per_year = 60000000
+//        userModel.job = "iOS Engineer"
+//
+//        db.collection("profile_sections").document("TEST").setData(userModel.toJSON()) {
+//            err in
+//            if let err = err {
+//                print("Error writing document: \(err)")
+//            } else {
+//                print("Document successfully written!")
+//            }
+//        }
         
-        userModel.age = 21
-        userModel.experience_in_current_work = 2
-        userModel.salary_per_months = 4500000
-        userModel.salary_per_year = 60000000
-        userModel.job = "iOS Engineer"
-        
-        db.collection("profile_sections").document("TEST").setData(userModel.toJSON()) {
-            err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
         
         guard currentUser != nil else { return }
     }
