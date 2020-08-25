@@ -14,11 +14,19 @@ import FirebaseFirestore
 struct dashboardView: View {
     
     // Business Logic
-    @ObservedObject var dashboardBusiness: dashboardViewBusiness = .init()
+    @ObservedObject var checkPin: profileSectionsWorker = profileSectionsWorker.init(pinModel(), pinCollectionPath)
     
     // Main
     var body: some View {
-        self.contentLayout
+        ZStack {
+            if checkPin.outputSuccess {
+                self.contentLayout
+            } else {
+                PinRelated.init(.setupPin)
+            }
+        }.onAppear {
+            self.checkPin.getFirebase()
+        }
     }
     
     private var contentLayout: some View {
@@ -42,14 +50,7 @@ struct dashboardView: View {
             HStack {
                 FinDefaultText("You haven't setup your profile, click here to start your progress", .thin, 14).foregroundColor(.getPrimaryDimmedColor)
             }
-            VStack {
-                Button.init("Mencoba test") {
-                    self.dashboardBusiness.debugPushToFirebase()
-                }
-                Button.init("Force Logout test") {
-                    self.dashboardBusiness.debugToLogout()
-                }
-            }
+            
         }.frame(height:75).padding()
     }
 }
@@ -61,40 +62,5 @@ class dashboardViewBusiness: ObservableObject {
     @Published var currentWallet: Int = 0
     
     func classCalculateTotalWallet() {
-        
-    }
-    
-    func debugPushToFirebase() {
-        let uid: String? = fireBaseUserSessionImpl().getSession()?.uid
-        let db: Firestore! = Firestore.firestore()
-        let currentUser: User? = Auth.auth().currentUser
-        var userModel: profileSections = profileSections()
-
-        userModel.age = 21
-        userModel.experience_in_current_work = 2
-        userModel.salary_per_months = 4500000
-        userModel.salary_per_year = 60000000
-        userModel.job = "iOS Engineer"
-//
-//        db.collection("profile_sections").document("TEST").setData(userModel.toJSON()) {
-//            err in
-//            if let err = err {
-//                print("Error writing document: \(err)")
-//            } else {
-//                print("Document successfully written!")
-//            }
-//        }
-        
-        
-//        guard currentUser != nil else { return }
-        profileSectionsWorker().setFirebaseUserProfile(userModel)
-    }
-    
-    func debugToLogout() {
-        do {
-            try Auth.auth().signOut()
-        } catch (let Exception) {
-            print(Exception.localizedDescription)
-        }
     }
 }
