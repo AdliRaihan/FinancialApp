@@ -11,8 +11,8 @@ import ObjectMapper
 struct pinModel: Mappable {
     
     var pin: Int!
-    var createdAt: Date?
-    var updatedAt: Date!
+    var createdAt: Date? = Date()
+    var updatedAt: Date! = Date()
     
     init?(map: Map) {
     }

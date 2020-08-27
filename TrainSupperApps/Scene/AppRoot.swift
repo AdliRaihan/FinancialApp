@@ -14,7 +14,6 @@ let screenBounds = UIScreen.main.bounds
 struct AppRoot: View {
     
     @EnvironmentObject var session: sessionUser
-    @ObservedObject var modelAuth = fireBaseUserSessionImpl()
     @State var paddingTop: CGFloat = 70
     @State var authorize:Bool = false
     
@@ -29,9 +28,8 @@ struct AppRoot: View {
     var body: some View {
         Group {
             ZStack {
-                if self.modelAuth.currentSessionActive {
-                    dashboardView()
-                        .transition(.opacity)
+                if Auth.auth().currentUser?.refreshToken != nil {
+                    AppRootWithOnAuth()
                 } else {
                     LandingView_main().environmentObject(session).transition(.slide).zIndex(1)
                 }

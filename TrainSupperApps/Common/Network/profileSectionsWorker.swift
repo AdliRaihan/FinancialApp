@@ -68,7 +68,7 @@ private class profileSectionPersonalInformation: profileSectionBusinessLogic {
 private class profileSectionGetPersonalInformation<R:Mappable>: profileSectionBusinessLogic {
     var businessCase: ((profileSectionBussinessCase) -> Void) = {_ in}
     func sendToFireBase(_ M: Mappable, _ Path: String) -> profileSectionGetPersonalInformation {
-        Firestore.firestore().collection(Path).document("ASDASDASDASDASDASD").getDocument { (snapshot, error) in
+        Firestore.firestore().collection(Path).document(currentEmail()).getDocument { (snapshot, error) in
             if let docs = snapshot, docs.exists, let json = docs.data() {
                 let Model = Mapper<R>.init()
                 self.businessCase(.successWithJSON(Model.map(JSON: json)))
@@ -98,7 +98,7 @@ class profileSectionsWorker<T>: ObservableObject where T:Mappable {
     
     // MARK: Variables
     @Published var modelOutput: T
-    @Published var outputSuccess: Bool = false
+    @Published var outputSuccess: Bool? = nil
     private let modelInput: T
     private let path: String
     
@@ -110,7 +110,7 @@ class profileSectionsWorker<T>: ObservableObject where T:Mappable {
     
     // MARK: Commands
     fileprivate lazy var getPersonalInformation = { return tokenType.init(profileSectionGetPersonalInformation<T>(), self.modelOutput, self.path) }
-    fileprivate lazy var setPersonalInformation = { return tokenType.init(profileSectionPersonalInformation(), self.modelInput, self.path) }
+    fileprivate lazy var setPersonalInformation = { return tokenType.init(profileSectionPersonalInformation(), self.modelOutput, self.path) }
     
     // MARK: Get Fire Base Profile Information
     func getFirebase() {
@@ -120,6 +120,7 @@ class profileSectionsWorker<T>: ObservableObject where T:Mappable {
                 let modelWeak: T? = completion.handleResults()
                 if let modelStrong = modelWeak {
                     self.modelOutput = modelStrong
+                    self.outputSuccess = true
                 } else {
                     self.outputSuccess = false
                     throw NSError.init(domain: "Failed", code: 0, userInfo: [:])

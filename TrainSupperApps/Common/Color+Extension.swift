@@ -40,22 +40,40 @@ extension Color {
         return Color.init(hex: "#121212")
     }
     
+    static var getSecondaryColor: Color {
+        return Color.init(hex: "#2d3436")
+    }
+    
     static var getPrimaryDimmedColor: Color {
         //        return UIColor.init(rgb: 0x363636)
         return Color.init(hex: "#a8a8a8")
     }
     
     static var getLightWhiteColor: Color {
-        //        return UIColor.init(rgb: 0xf5f5f5)
-        return Color.init(hex: "#121212")
+        return Color.init(hex: "#f5f5f5")
     }
     
     static var getDarkWhiteColor: Color {
         //        return UIColor.init(rgb: 0xa8a8a8)
-        return Color.init(hex: "#363636")
+        return Color.init(hex: "#f1f2f6")
+    }
+    
+    static var getDarkBackgroundColor: Color {
+        return Color.init(hex: "#2f3542")
     }
     
     static var getRedDarkColor: Color {
         return Color.init(hex: "#b71c1c")
+    }
+    
+    static var getDarkBlue: Color {
+        return Color.init(hex: "#34495E")
+    }
+    
+    static var getGradientDeepSpace : [Color] {
+        return [
+            Color.init(hex: "#434343"),
+            Color.getPrimaryColor
+        ]
     }
 }
