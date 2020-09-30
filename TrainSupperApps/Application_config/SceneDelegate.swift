@@ -22,17 +22,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let contentView = AppRoot()
         let navigationBarAppearence = UINavigationBarAppearance()
-        navigationBarAppearence.backgroundColor = .white
+        navigationBarAppearence.backgroundColor = .black
         navigationBarAppearence.shadowColor = .clear
         navigationBarAppearence.shadowImage = UIImage()
         
         let session = sessionUser()
         UINavigationBar.appearance().standardAppearance = navigationBarAppearence
+        UINavigationBar.appearance().tintColor = .white
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(session))
+            window.rootViewController = appRootHostring.init(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
         }
