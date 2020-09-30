@@ -147,3 +147,5 @@ struct failedModel {
     var errorCode: String?
     var message: String
 }
+
+
